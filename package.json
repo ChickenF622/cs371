@@ -1,0 +1,21 @@
+{
+  "devDependencies": {
+    "gulp": "",
+    "gulp-git": "^1.7.0",
+    "gulp-if": "^2.0.0",
+    "gulp-jade": "",
+    "gulp-less": "",
+    "gulp-notify": "",
+    "gulp-rename": "",
+    "karma": "^0.13.22",
+    "karma-ie-launcher": "^0.2.0",
+    "minimist": "^1.2.0",
+    "path": "",
+    "qunitjs": "^1.22.0"
+  },
+  "dependencies": {
+    "lodash": "^4.5.1",
+    "lodash._basecopy": "^3.0.1",
+    "lodash._getnative": "^3.9.1"
+  }
+}
