@@ -1,1 +1,4 @@
+*.sqlite3
 *.swp
+node_modules/
+__pychache__/
