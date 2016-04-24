@@ -30,7 +30,7 @@ class Person(Winner):
   date_of_birth = models.DateField()
 
   def __str__(self):
-    return str(self.name)
+    return '{} {}'.format(self.name_first, self.name_last)
 
 class Organization(Winner, NameModel):
   pass
