@@ -1,0 +1,59 @@
+include ./string-utils.jade
+
+//-
+  Creates a bootstrap button
+  @param {String} [type="primary"] The type of button to create
+mixin button(type)
+  -
+    if(typeof type === "undefined")
+      type = "primary"
+  button.btn(class="btn-" + type)&attributes(attributes)
+    block
+
+//-
+  Creates a group of checkboxes with each checkbox having the given caption
+  @param {String...} captions The captions for the checkboxes
+mixin checkbox-list(...captions)
+  for caption in captions
+    .checkbox
+      label
+        input(type="checkbox" value="")
+        =caption
+
+//-
+  Creates a dropdown with all the key value pairs in the mapping being an option
+mixin dropdown(caption, mapping)
+  - var name = createName(attributes.id)
+  .form-group
+    label.control-label(for=attributes.id)=caption
+    div
+      select.form-control(name=name)&attributes(attributes)
+        option(value="", selected, disabled, hidden).hidden
+        for value, key in mapping
+          option(value=value)=key
+
+//-
+  Creates a bootstrap input field the name attribute is auto-generated based on the ID of the
+  field or the class, will need to be a single class, in PascalCase
+  @param {String} caption The caption of the field
+  @param {Object} attributes Any attributes will be applied to the input field that is
+    generated
+mixin input-field(caption)
+  -
+    var name = "";
+    if (typeof attributes.id !== "undefined")
+    {
+      name = createName(attributes.id);
+    }
+  .form-group
+    if typeof caption !== "undefined"
+      label.control-label(for=attributes.id)=caption
+    div
+      input.form-control&attributes(attributes)(name=name)
+      block
+
+mixin radio-list(name, ...valueMap)
+  for entry, i in valueMap
+    .radio
+      input(id=attributes.name + i, name=name, type=radio, value=entry[0])
+      =entry[1]

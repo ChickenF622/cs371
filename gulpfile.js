@@ -13,43 +13,15 @@ var errorNotification = notify.onError(function (error)
       return error.message;
     });
 
-var lessPaths = ["./Less/*.less",
-          "./Less/fuelux/fuelux.less",
-          "./Less/bootstrap/bootstrap.less"
+var lessPaths = ["**/static/*/css/less/*.less",
+          "**/static/*/css/less/bootstrap/bootstrap.less"
   ];
 
-var jadePaths = ["./**/templates/jade/**/*.jade", "!./includes/jade/*.jade"
+var jadePaths = ["**/templates/*/jade/*.jade",
   ];
 
 gulp.task("default", function()
     {
-    });
-
-gulp.task("test", function()
-    {
-      notify("Hello World!");
-    });
-
-gulp.task("add", function ()
-    {
-      return gulp.src(".")
-        .on("error", function ()
-            {
-              console.log("No files to add");
-            })
-        .pipe(git.add());
-    });
-
-var commitMessage =
-{
-  string: "msg",
-  default: {msg: ""}
-};
-var commitOptions = minimist(process.argv.slice(2), commitMessage);
-gulp.task("commit", ["add"], function ()
-    {
-      return gulp.src(".")
-        .pipe(git.commit(commitOptions.msg));
     });
 
 gulp.task("less", function ()
@@ -68,16 +40,17 @@ gulp.task("jade", function ()
       return gulp.src(jadePaths)
         .pipe(jade(
               {
+                basedir: "C:\\Users\\Mark\\Google Drive\\School\\Notes\\CurrentYr\\CS371\\NobelPrize",
                 locals: {},
                 pretty: true
               }))
         .on("error", errorNotification)
         .pipe(rename(function (path)
               {
-                path.extname = ".cshtml";
-                return path;
-              }))
-        .pipe(gulp.dest("./Views"));
+                path.dirname = path.dirname.replace("\\jade", "");
+              })
+            )
+        .pipe(gulp.dest("."));
     });
 
 var commitMessage =

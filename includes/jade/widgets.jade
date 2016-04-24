@@ -1,0 +1,63 @@
+include ./string-utils.jade
+
+
+//-
+  Convience function for creating a glyphicon the class should be the name of the
+  desired glyphicon with the glyphicon- part
+mixin glyphicon()
+  span.glyphicon(class="glyphicon-" + attributes.class)
+
+//-
+  Creates a bootstrap modal
+  @param {String} title The title of the modal
+  @param {String} [action] The caption of the button that executes the modal's action. If
+    omitted there will be no buttons in the modal's footer
+mixin modal(title, action, size)
+  - var modalClass = "modal-dialog";
+  - if (typeof size !== "undefined")
+  - {
+  -   modalClass += " modal-" + size;
+  - }
+  .modal.fade(id=attributes.id tabindex="-1", role="dialog", data-backdrop="static")
+    div(role="document", class=modalClass)
+      .modal-content
+        .modal-header
+          +button().close.modal-close(aria-label="Close")
+            span(aria-hidden="true") &times;
+          h4.modal-title=title
+        .modal-body
+          block
+        if typeof action !== "undefined"
+          .modal-footer
+            +button("default").modal-close Cancel
+            +button().modal-action.modal-close=action
+
+//-
+  Creates a button that will toggle the modal for the ID given to the mixin
+mixin modal-button(modal)
+  +button()(data-toggle="modal", data-target="#" + modal)&attributes(attributes)
+    block
+
+
+//-
+  Creates the tab in the nav bar
+  @param {String} name The name of the tab
+mixin tab(name)
+  li(class=attributes.class, role="presentation")
+    a(href="#" + name
+      aria-controls="home"
+      role="tab"
+      data-toggle="tab"
+      )
+      =name[0].toUpperCase() + name.substr(1)
+
+//-
+  Creates the tab pane that is tied to a tab in the nav bar
+mixin tab-pane(name)
+  .tab-pane(role="tabpanel")&attributes(attributes)
+    .panel.panel-primary
+      .panel-heading
+        .panel-title #[- capitalize(attributes.id)]
+      .panel-body
+        block
+

@@ -1,0 +1,16 @@
+-
+  function capitalize(text)
+  {
+    return text[0].toUpperCase() + text.substr(1).toLowerCase();
+  }
+
+  function createName(id)
+  {
+    var name = "";
+    var parts = id.split("-");
+    for (var i = 0; i < parts.length; i++)
+    {
+      name += capitalize(parts[i]) + " ";
+    }
+    return name.trim();
+  }
