@@ -3,5 +3,34 @@ include /includes/jade/includes.jade
 doctype html
 html
   head
+    link(rel="stylesheet", type="text/css", href="https://cdn.datatables.net/t/dt/jq-2.2.0,dt-1.10.11/datatables.min.css")
+    script(type="text/javascript", src="https://cdn.datatables.net/t/dt/jq-2.2.0,dt-1.10.11/datatables.min.js")
+    script.
+      $(document).ready(function()
+      {
+        $("#noble-prizes").DataTable();
+      });
   body
-    p Hello World!
+    table#noble-prizes.display(cellspacing="0", width="100%")
+      thead
+        tr
+          th Category
+          th Year
+          th Winner
+          th Winner's DOB
+          th Winner's Country
+          th Winner's Contient
+      tbody
+        |{% for prize in prizes %}
+        tr
+          td {{prize.category}}
+          td {{prize.year}}
+          |{% if prize.winner.organization %}
+          td {{prize.winner.organization.name|default:"NN"}}
+          |{% else %}
+          td {{prize.winner.person.name_first}} {{prize.winner.person.name_last}}
+          |{% endif %}
+          td {{prize.winner.person.date_of_birth|default:"N/A"}}
+          td {{prize.winner.country}}
+          td {{prize.winner.country.continent}}
+        |{% endfor %}

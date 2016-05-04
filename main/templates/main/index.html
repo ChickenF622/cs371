@@ -1,7 +1,38 @@
 <!DOCTYPE html>
 <html>
-  <head></head>
+  <head>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/t/dt/jq-2.2.0,dt-1.10.11/datatables.min.css">
+    <script type="text/javascript" src="https://cdn.datatables.net/t/dt/jq-2.2.0,dt-1.10.11/datatables.min.js"></script>
+    <script>
+      $(document).ready(function()
+      {
+        $("#noble-prizes").DataTable();
+      });
+    </script>
+  </head>
   <body>
-    <p>Hello World!</p>
+    <table id="noble-prizes" cellspacing="0" width="100%" class="display">
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Year</th>
+          <th>Winner</th>
+          <th>Winner's DOB</th>
+          <th>Winner's Country</th>
+          <th>Winner's Contient</th>
+        </tr>
+      </thead>
+      <tbody>{% for prize in prizes %}
+        <tr>
+          <td>{{prize.category}}</td>
+          <td>{{prize.year}}</td>{% if prize.winner.organization %}
+          <td>{{prize.winner.organization.name|default:"NN"}}</td>{% else %}
+          <td>{{prize.winner.person.name_first}} {{prize.winner.person.name_last}}</td>{% endif %}
+          <td>{{prize.winner.person.date_of_birth|default:"N/A"}}</td>
+          <td>{{prize.winner.country}}</td>
+          <td>{{prize.winner.country.continent}}</td>
+        </tr>{% endfor %}
+      </tbody>
+    </table>
   </body>
 </html>

@@ -1,6 +1,6 @@
 from django.db import models
-from composite_field import CompositeField
 
+# Generic class for entities that have a name attribute
 class NameModel(models.Model):
   name = models.CharField(max_length=45)
 
@@ -10,7 +10,6 @@ class NameModel(models.Model):
   def __str__(self):
     return self.name
 
-# Create your models here.
 class Category(NameModel):
   pass
 
